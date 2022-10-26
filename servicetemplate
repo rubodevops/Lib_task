@@ -1,0 +1,19 @@
+[Unit]
+Description=Manage script
+After=syslog.target network.target
+
+[Service]
+WorkingDirectory=/home/cloud_user
+ExecStart=/bin/bash /home/cloud_user/script.sh
+User=cloud_user
+Type=simple
+Restart=on-failure
+RestartSec=10
+
+
+[Timer]
+OnUnitActiveSec=15s
+OnBootSec=15s
+
+[Install]
+WantedBy=multi-user.target

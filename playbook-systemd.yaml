@@ -1,0 +1,23 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: systemd autostart config
+      template:
+        src: './servicetemplate'
+        dest: '/etc/systemd/system/script-service.service'
+      become: true  
+  
+    - name: enable script-service
+      ansible.builtin.service:
+        name: script-service.service
+        enabled: yes
+      become: true
+
+    - name: start script-service
+      ansible.builtin.service:
+        name: script-service.service
+        state: started
+        daemon_reload: yes
+      become: true
+
